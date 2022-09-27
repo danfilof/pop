@@ -13,9 +13,8 @@ import java.util.*;
 public class Searcher {
 
     static List<String> pops = Arrays.asList("one piece", "naruto", "avatar", "attack on titan", "demon slayer");
-    //static List<String> pops1 = Arrays.asList("funko pop avatar");
-    //static List<String> pops1 = Arrays.asList("funko pop one piece", "funko pop naruto", "funko pop avatar", "funko pop attack on titan", "funko pop demon slayer");
-    static List<String> pops1 = Arrays.asList("funko pop naruto");
+    static List<String> pops1 = Arrays.asList("funko pop one piece", "funko pop naruto", "funko pop avatar", "funko pop attack on titan");
+    //static List<String> pops1 = Arrays.asList("funko pop naruto");
 
 
     public static final String SEARCH_URL = "";
@@ -84,7 +83,8 @@ public class Searcher {
         final String SEARCH_URL = "https://www.gamestop.ch/SearchResult/QuickSearch?q=";
 
         String finalSearchTerm = searchTerm.replace(" ", "+");
-        String reference = searchTerm.replace("funko pop", "");
+        String reference = searchTerm.replace("funko pop ", "");
+        String reference1 = reference.replace(" ", "-");
 
         String searchURL = SEARCH_URL + finalSearchTerm;
         //without proper User-Agent, we will get 403 error
@@ -107,26 +107,33 @@ public class Searcher {
                 String srt1 = orgTitle.replace("alt=\"2med image\" src=\"/Content/Images/big-loader.gif\" class=\"LL_ready\" onerror=\"this.src = '/Views/Locale/Content/Images/medDefault.jpg';\"> </a> \n" +
                         "</div>", "");
                 String str2 = srt1.replace("<div class=\"searchProductImage\">","");
-                    System.out.println(str2);
+                String str3 = str2.replace("<a href=\"/Merchandise/Games/", "");
+                String str4 = str3.split(">")[0];
+                if (str4.contains(reference1)) {
+                    if (str4.contains("manga")){
+                    } else {
+                        System.out.println(str4);
+                    }
+                }
             }
         }
 
 
-        for (Element result : results) {
-            String linkHref = result.attr("href");
-            String linkText = result.text();
-            if (linkText.contains("POP!")) {
-                String pop = "https://www.gamestop.ch/" + linkHref + " " + linkText;
-               if (doubled.contains(pop)){
-               } else {
-                   doubled.add(pop);
-               }
-            }
-        }
-        for (int i = 0; i < doubled.size();i++)
-        {
-            System.out.println(doubled.get(i));
-        }
+//        for (Element result : results) {
+//            String linkHref = result.attr("href");
+//            String linkText = result.text();
+//            if (linkText.contains("POP!")) {
+//                String pop = "https://www.gamestop.ch/" + linkHref + " " + linkText;
+//               if (doubled.contains(pop)){
+//               } else {
+//                   doubled.add(pop);
+//               }
+//            }
+//        }
+//        for (int i = 0; i < doubled.size();i++)
+//        {
+//            System.out.println(doubled.get(i));
+//        }
     }
 
 }
