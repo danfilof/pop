@@ -21,17 +21,17 @@ public class Searcher {
 
     public static void searchLoop() throws IOException {
         //FIGURINES LOOP
-//        for (int i = 0; i < pops.size(); i++) {
-//            System.out.println("FIGURINE: " + pops.get(i).toUpperCase(Locale.ROOT));
-//            firugines(pops.get(i));
-//            System.out.println("==========================================================================");
-//    }
-//        System.out.println("=======================================");
-//        System.out.println("=======================================");
-//        System.out.println("=======================================");
-//        System.out.println("=======================================");
-//        System.out.println("=======================================");
-//        System.out.println("=======================================");
+        for (int i = 0; i < pops.size(); i++) {
+            System.out.println("FIGURINE: " + pops.get(i).toUpperCase(Locale.ROOT));
+            firugines(pops.get(i));
+            System.out.println("==========================================================================");
+    }
+        System.out.println("=======================================");
+        System.out.println("=======================================");
+        System.out.println("=======================================");
+        System.out.println("=======================================");
+        System.out.println("=======================================");
+        System.out.println("=======================================");
 
 
         // GAMESTOP LOOP
@@ -117,23 +117,6 @@ public class Searcher {
                 }
             }
         }
-
-
-//        for (Element result : results) {
-//            String linkHref = result.attr("href");
-//            String linkText = result.text();
-//            if (linkText.contains("POP!")) {
-//                String pop = "https://www.gamestop.ch/" + linkHref + " " + linkText;
-//               if (doubled.contains(pop)){
-//               } else {
-//                   doubled.add(pop);
-//               }
-//            }
-//        }
-//        for (int i = 0; i < doubled.size();i++)
-//        {
-//            System.out.println(doubled.get(i));
-//        }
     }
 
 }
