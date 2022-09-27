@@ -1,5 +1,6 @@
 package com.anfilofyev;
 
+import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -12,12 +13,15 @@ import java.util.*;
 public class Searcher {
 
     static List<String> pops = Arrays.asList("one piece", "naruto", "avatar", "attack on titan", "demon slayer");
-    static List<String> pops1 = Arrays.asList("funko pop avatar");
+    //static List<String> pops1 = Arrays.asList("funko pop avatar");
     //static List<String> pops1 = Arrays.asList("funko pop one piece", "funko pop naruto", "funko pop avatar", "funko pop attack on titan", "funko pop demon slayer");
+    static List<String> pops1 = Arrays.asList("funko pop naruto");
+
 
     public static final String SEARCH_URL = "";
 
     public static void searchLoop() throws IOException {
+        //FIGURINES LOOP
 //        for (int i = 0; i < pops.size(); i++) {
 //            System.out.println("FIGURINE: " + pops.get(i).toUpperCase(Locale.ROOT));
 //            firugines(pops.get(i));
@@ -30,11 +34,14 @@ public class Searcher {
 //        System.out.println("=======================================");
 //        System.out.println("=======================================");
 
+
+        // GAMESTOP LOOP
         for (int i = 0; i < pops1.size(); i++) {
             System.out.println("GAMESTOP: " + pops1.get(i).toUpperCase(Locale.ROOT));
             gameStop(pops1.get(i));
             System.out.println("==========================================================================");
         }
+
     }
 
 
@@ -43,14 +50,10 @@ public class Searcher {
 
         final String SEARCH_URL = "https://www.figurines-goodies.com/recherche?search_query=";
 
-        //Taking search term input from console
-        Scanner scanner = new Scanner(System.in);
-
 
         String finalSearchTerm = searchTerm.replace(" ", "+");
         String reference = searchTerm.replace(" ", "-");
 
-        scanner.close();
         String searchURL = SEARCH_URL + finalSearchTerm + "&submit_search=&autocaptcha=1306535573&orderby=quantity&orderway=desc";
         //without proper User-Agent, we will get 403 error
         Document doc = Jsoup.connect(searchURL).userAgent("Mozilla/5.0").get();
@@ -95,6 +98,19 @@ public class Searcher {
         //we need to change below accordingly
 
         Elements results = doc.select("a[href]");
+        Elements results1 = doc.select("button");
+
+
+        for (Element result1 : results1) {
+            if (result1.toString().contains("Abholen im Store")){
+                String orgTitle = String.valueOf(result1.firstElementSibling());
+                String srt1 = orgTitle.replace("alt=\"2med image\" src=\"/Content/Images/big-loader.gif\" class=\"LL_ready\" onerror=\"this.src = '/Views/Locale/Content/Images/medDefault.jpg';\"> </a> \n" +
+                        "</div>", "");
+                String str2 = srt1.replace("<div class=\"searchProductImage\">","");
+                    System.out.println(str2);
+            }
+        }
+
 
         for (Element result : results) {
             String linkHref = result.attr("href");
@@ -112,4 +128,5 @@ public class Searcher {
             System.out.println(doubled.get(i));
         }
     }
+
 }
