@@ -12,7 +12,7 @@ import java.util.*;
 
 public class Searcher {
 
-    static List<String> pops = Arrays.asList("one piece", "naruto", "avatar", "attack on titan", "demon slayer");
+    static List<String> pops = Arrays.asList("one piece", "naruto", "avatar", "attack on titan");
     static List<String> pops1 = Arrays.asList("funko pop one piece", "funko pop naruto", "funko pop avatar", "funko pop attack on titan");
     //static List<String> pops1 = Arrays.asList("funko pop naruto");
 
@@ -89,13 +89,6 @@ public class Searcher {
         String searchURL = SEARCH_URL + finalSearchTerm;
         //without proper User-Agent, we will get 403 error
         Document doc = Jsoup.connect(searchURL).userAgent("Mozilla/5.0").get();
-
-        //below will print HTML data, save it to a file and open in browser to compare
-        //System.out.println(doc.html());
-
-
-        //If google search results HTML change the <h3 class="r" to <h3 class="r1"
-        //we need to change below accordingly
 
         Elements results = doc.select("a[href]");
         Elements results1 = doc.select("button");
