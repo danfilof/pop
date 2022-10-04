@@ -32,6 +32,7 @@ public class Searcher {
         System.out.println("=======================================");
         System.out.println("=======================================");
         System.out.println("=======================================");
+        System.out.println("=======================================");
 
 
         // GAMESTOP LOOP
