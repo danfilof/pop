@@ -1,6 +1,5 @@
 package com.anfilofyev;
 
-import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -20,18 +19,13 @@ public class Searcher {
     public static final String SEARCH_URL = "";
 
     public static void searchLoop() throws IOException {
+
         //FIGURINES LOOP
         for (int i = 0; i < pops.size(); i++) {
             System.out.println("FIGURINE: " + pops.get(i).toUpperCase(Locale.ROOT));
             firugines(pops.get(i));
             System.out.println("==========================================================================");
     }
-        System.out.println("=======================================");
-        System.out.println("=======================================");
-        System.out.println("=======================================");
-        System.out.println("=======================================");
-        System.out.println("=======================================");
-        System.out.println("=======================================");
         System.out.println("=======================================");
 
 
@@ -88,10 +82,8 @@ public class Searcher {
         String reference1 = reference.replace(" ", "-");
 
         String searchURL = SEARCH_URL + finalSearchTerm;
-        //without proper User-Agent, we will get 403 error
         Document doc = Jsoup.connect(searchURL).userAgent("Mozilla/5.0").get();
 
-        Elements results = doc.select("a[href]");
         Elements results1 = doc.select("button");
 
 
