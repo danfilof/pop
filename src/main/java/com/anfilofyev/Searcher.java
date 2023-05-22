@@ -29,10 +29,10 @@ public class Searcher {
         System.out.println("=======================================");
 
 
-        // GAMESTOP LOOP
+        // ARCHONIA LOOP
         for (int i = 0; i < pops1.size(); i++) {
-            System.out.println("GAMESTOP: " + pops1.get(i).toUpperCase(Locale.ROOT));
-            gameStop(pops1.get(i));
+            System.out.println("ARCHONIA: " + pops1.get(i).toUpperCase(Locale.ROOT));
+            archonia(pops1.get(i));
             System.out.println("==========================================================================");
         }
 
@@ -65,44 +65,43 @@ public class Searcher {
             String linkText = result.text();
 
             if (linkHref.contains(reference) && linkHref.contains("html") && linkText.contains("Disponible")){
-                System.out.println(linkHref + " || " + linkText);
+                System.out.println(linkText);
             }
         }
     }
 
-    public static void gameStop(String searchTerm) throws IOException {
+    public static void archonia(String searchTerm) throws IOException {
 
-        ArrayList<String> doubled = new ArrayList<String>();
+        final String SEARCH_URL = "https://www.archonia.com/en-us/search?q-a2%5B0%5D=1&filter_string=";
 
 
-        final String SEARCH_URL = "https://www.gamestop.ch/SearchResult/QuickSearch?q=";
-
-        String finalSearchTerm = searchTerm.replace(" ", "+");
-        String reference = searchTerm.replace("funko pop ", "");
-        String reference1 = reference.replace(" ", "-");
+        String finalSearchTerm = searchTerm.replace(" ", "%20");
+        String replacePOP = searchTerm.replace("funko pop", "");
+        String reference = searchTerm.replace(" ", "-");
 
         String searchURL = SEARCH_URL + finalSearchTerm;
+        //without proper User-Agent, we will get 403 error
         Document doc = Jsoup.connect(searchURL).userAgent("Mozilla/5.0").get();
 
-        Elements results1 = doc.select("button");
+        //below will print HTML data, save it to a file and open in browser to compare
+        //System.out.println(doc.html());
 
 
-        for (Element result1 : results1) {
-            if (result1.toString().contains("Abholen im Store")){
-                String orgTitle = String.valueOf(result1.firstElementSibling());
-                String srt1 = orgTitle.replace("alt=\"2med image\" src=\"/Content/Images/big-loader.gif\" class=\"LL_ready\" onerror=\"this.src = '/Views/Locale/Content/Images/medDefault.jpg';\"> </a> \n" +
-                        "</div>", "");
-                String str2 = srt1.replace("<div class=\"searchProductImage\">","");
-                String str3 = str2.replace("<a href=\"/Merchandise/Games/", "");
-                String str4 = str3.split(">")[0];
-                if (str4.contains(reference1)) {
-                    if (str4.contains("manga")){
-                    } else {
-                        System.out.println(str4);
-                    }
-                }
+        //If google search results HTML change the <h3 class="r" to <h3 class="r1"
+        //we need to change below accordingly
+        Elements results = doc.select("a[href]");
+        //System.out.println(results);
+
+        for (Element result : results) {
+            String linkHref = result.attr("href");
+            String linkText = result.text();
+
+
+            if (linkText.contains("Pop")){
+                System.out.println(linkText);
             }
         }
     }
+
 
 }
